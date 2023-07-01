@@ -13,4 +13,4 @@ The features of application:
 -> Admins and staff can view confirmed room booking.
 -> Admins and staff can cancel room booking created by them.
 
-Link to the live URL on application- https://srija-sports-scheduler-j8vm.onrender.com
+Link to the live URL on application- https://rooms-booking.onrender.com

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/styles.css">
+  <title>Sign In</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    html, body {
+      height: 100%;
+      background-image: url("https://i.pinimg.com/564x/9e/bf/44/9ebf447e4927bd4d1aa070dd5cfc12fd.jpg");
+      background-size: cover;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <%- include('header.ejs') %>
+        <b class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded px-3 py-1 "><a href="/signout">Home</a></b>
+        <h2 class="text-center"><b>Sign In</b></h2>
+        <form action="/session" method="post">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Sign In</button>
+          </div>
+        </form>
+        <% if(messages && messages.error && messages.error.length > 0)  { %>
+          <% for(var i=0; i<messages.error.length; i++) { %>
+                  <li class="bg-red-200 my-3 list-none rounded px-4 py-2"> <%= messages.error[i] %></li>
+          <% } %>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

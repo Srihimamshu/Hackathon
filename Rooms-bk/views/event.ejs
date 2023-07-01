@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Create Event</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./css/styles.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body {
+      background-image: url("https://i.pinimg.com/564x/9e/bf/44/9ebf447e4927bd4d1aa070dd5cfc12fd.jpg");
+      background-size: cover;
+
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <%- include('header.ejs') %>
+        <b class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded px-3 py-1 "><a href="/viewRooms">Go Back</a></b>
+        <b class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded px-3 py-1 "><a href="/signout">Signout</a></b>
+        <h2 class="text-center"><b>Book Your Room</b></h2>
+        <form action="/createEvent/<%=room.id%>" method="post">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <div class="form-group">
+            <label for="eventName">Event Name:</label>
+                <input required type="text" name="eventName" class="form-control">
+          </div>
+          <div>
+            <label for="date">Date:</label>
+            <input required type="date" name="date" value="<%=Date1%>" class="form-control">
+          </div>
+          <div>
+            <label for="roomNo" >Room Number:</label>
+                <input  disabled type="number" name="roomNo" value="<%=title%>"class="form-control">
+          </div>
+          <br>
+          <div>
+            <label for="speakerName">Speaker Name:</label>
+                    <input required type="text" name="speakerName" class="form-control">
+          </div>
+          <br>
+          <div>
+            <label for="target">Target Audience:</label>
+                    <input required type="text" name="target" class="form-control">
+          </div>
+          <br>
+          <div>
+            <label for="NoOfAttendees">Number Of Attendees:</label>
+                    <input required type="number" name="NoOfAttendees" class="form-control">
+          </div>
+          <br>
+          <button type="submit"  class="bg-green-600 text-white px-5 py-1.5 rounded font-medium mr-2 mb-2">Submit</button>
+          
+        </form>
+        <% if(messages && messages.error && messages.error.length > 0)  { %>
+          <% for(var i=0; i<messages.error.length; i++) { %>
+                  <li class="bg-red-200 my-3 list-none rounded px-4 py-2"> <%= messages.error[i] %></li>
+          <% } %>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

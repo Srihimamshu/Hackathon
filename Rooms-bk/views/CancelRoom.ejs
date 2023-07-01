@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View and Confirm Room</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="csrf-token" content="<%= csrfToken %>">
+  <link rel="stylesheet" href="./css/styles.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body {
+      height: 100%;
+      background-image: url("https://i.pinimg.com/564x/0a/59/de/0a59decacf2a1f9f426e045c353c55d9.jpg");
+      background-size: cover;
+
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+   <script>
+    var token = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content")
+    function CancelEvents(id){
+        
+        fetch(`/Cancelroom/${id}`,{
+            method:"PUT",
+            headers:{"Content-Type": "application/json"},
+            body: JSON.stringify({
+                "_csrf":token,
+                cancelled:true
+            })
+        })
+        .then((res) =>{
+            if (res.ok){
+                window.location.reload()
+            }    
+        })
+        .catch((err) => console.error(err))
+    }
+    
+</script>
+</head>
+<body>
+    
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <%- include('header.ejs') %>
+        <b class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded px-3 py-1 "><a href="/room">Go Back</a></b>
+        <b class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded px-3 py-1 "><a href="/signout">Signout</a></b>
+        <h2 class="text-center"><b>Cancel Room Booking</b></h2><br>
+        <div class="btn-group-vertical m-3">
+            <%if(ConfirmEvents.length!=0){%>
+                <% for(var i=0; i< ConfirmEvents.length; i++) { %>
+                    <div style="background-color: aqua; display:inline;">
+                        <b><%=[i+1]%></b> <b><%=ConfirmEvents[i].date%></b> <b><%=Confirmation[i]%></b> <b><%=ConfirmEvents[i].eventName%></b> <b><%=ConfirmEvents[i].speakerName%></b> <b> </b>
+                        <button type="text" style="background-color:blue; display: inline;" class="btn btn-info " onclick="CancelEvents(<%= ConfirmEvents[i].id %>)"><a>Cancel</a></button>
+                    </div>
+                <% } %>
+            <%}else{%>
+                <p>There are no available rooms</p> 
+           <% }%>     
+            </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Room</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./css/styles.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body {
+      height: 100%;
+      background-image: url("https://i.pinimg.com/564x/0a/59/de/0a59decacf2a1f9f426e045c353c55d9.jpg");
+      background-size: cover;
+
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+    
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <%- include('header.ejs') %>
+        <b class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded px-3 py-1 "><a href="/room">Go Back</a></b>
+        <b class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded px-3 py-1 "><a href="/signout">Signout</a></b>
+        <h2 class="text-center"><b>Add Room</b></h2><br>
+        <form action="/room" method="post">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <div >
+            <label for="roomNo"><b>Room Number:</b></label>
+            <input required type="number" name="roomNo"   class="form-control">
+          </div><br>
+          <div class="form-group text-center">
+            <button type="submit"  class="bg-green-600 text-white px-5 py-1.5 rounded font-medium mr-2 mb-2">Submit</button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
